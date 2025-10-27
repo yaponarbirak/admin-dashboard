@@ -17,7 +17,7 @@ import {
 const navigation = [
   {
     name: "Dashboard",
-    href: "/",
+    href: "/admin",
     icon: LayoutDashboard,
   },
   {

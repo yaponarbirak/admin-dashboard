@@ -16,18 +16,19 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 
 const loginSchema = z.object({
-  email: z.string().email("Geçerli bir e-posta adresi giriniz"),
+  email: z.email("Geçerli bir e-posta adresi giriniz"),
   password: z.string().min(6, "Şifre en az 6 karakter olmalıdır"),
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
-
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
+  const router = useRouter();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -42,6 +43,7 @@ export function LoginForm() {
       setIsLoading(true);
       await login(values.email, values.password);
       toast.success("Giriş başarılı!");
+      router.push("/admin");
     } catch (error: any) {
       console.error("Login error:", error);
       toast.error(error.message || "Giriş yapılırken bir hata oluştu");
@@ -62,7 +64,7 @@ export function LoginForm() {
               <FormControl>
                 <Input
                   type="email"
-                  placeholder="admin@yaponarbirak.com"
+                  placeholder="ornek@ornek.com"
                   disabled={isLoading}
                   {...field}
                 />

@@ -46,8 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       setUser(adminUser);
       // Redirect to root (which will show dashboard)
-      router.push("/");
-      router.refresh();
+      router.push("/admin");
     } catch (error: any) {
       console.error("Login error:", error);
       throw error;
