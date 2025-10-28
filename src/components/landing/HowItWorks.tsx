@@ -1,0 +1,177 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { FaUserPlus, FaFileAlt, FaWrench } from "react-icons/fa";
+import Image from "next/image";
+
+const steps = [
+  {
+    icon: FaUserPlus,
+    title: "1. Üye Ol",
+    description:
+      "YAPONARBIRAK'a üye olmak çok kolay. Telefon numaran veya e-posta adresinle saniyeler içinde hesap aç, hemen ilan vermeye başla.",
+    image: "/homepage/images/feature-images/002.png",
+  },
+  {
+    icon: FaFileAlt,
+    title: "2. İlan Aç",
+    description:
+      "İlan açarak aracının arızasını veya ihtiyacını yaz. Ustalar sana teklif göndersin. Karşılaştır, seç ve kolayca hizmet al.",
+    image: "/homepage/images/feature-images/002.png",
+  },
+  {
+    icon: FaWrench,
+    title: "3. Ustanı Bul",
+    description:
+      "Tüm ustalar sistemde kayıtlıdır. Fiyatları gör, yorumları incele, işini gönül rahatlığıyla teslim et ve aracını kısa sürede hazır et.",
+    image: "/homepage/images/feature-images/002.png",
+  },
+];
+
+export default function HowItWorks() {
+  return (
+    <section id="works-section" className="py-20">
+      <div className="container mx-auto px-4">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Nasıl Çalışır ?
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            YAPONARBIRAK ile aracını kolayca tamir ettir. İlanını aç, ihtiyacını
+            yaz, birkaç dakika içinde ustalardan teklif al. Teklifleri
+            karşılaştır, en uygununu seç ve aracını güvenle yaptır.
+          </p>
+        </motion.div>
+
+        {/* Steps */}
+        <div className="space-y-24">
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+            const isEven = index % 2 === 0;
+
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
+                  isEven ? "" : "lg:flex-row-reverse"
+                }`}
+              >
+                {/* Content */}
+                <div className={isEven ? "lg:order-1" : "lg:order-2"}>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div
+                      className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg shrink-0"
+                      style={{
+                        background:
+                          "linear-gradient(to bottom right, var(--brand-primary), var(--brand-primary-light))",
+                      }}
+                    >
+                      <Icon className="text-3xl text-white" />
+                    </div>
+                    <h3 className="text-3xl font-bold text-gray-900">
+                      {step.title}
+                    </h3>
+                  </div>
+
+                  <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                    {step.description}
+                  </p>
+
+                  {/* Feature highlights */}
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <div
+                        className="w-2 h-2 rounded-full mt-2 shrink-0"
+                        style={{ backgroundColor: "var(--brand-primary)" }}
+                      ></div>
+                      <p className="text-gray-700">
+                        Güvenilir ustalarla buluşturmak, şeffaf fiyatlarla hızlı
+                        çözümler sunmak
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div
+                        className="w-2 h-2 rounded-full mt-2 shrink-0"
+                        style={{ backgroundColor: "var(--brand-primary)" }}
+                      ></div>
+                      <p className="text-gray-700">
+                        Üyelik ücretsizdir. Tüm hizmet geçmişin her an
+                        erişilebilir
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Image */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
+                  className={isEven ? "lg:order-2" : "lg:order-1"}
+                >
+                  <div className="relative w-full max-w-md mx-auto aspect-square">
+                    <div
+                      className="absolute inset-0 rounded-3xl blur-2xl"
+                      style={{
+                        background:
+                          "linear-gradient(to bottom right, rgba(156, 27, 39, 0.2), rgba(197, 36, 51, 0.2))",
+                      }}
+                    ></div>
+                    <div className="relative bg-white rounded-3xl shadow-2xl p-8">
+                      <Image
+                        src={step.image}
+                        alt={step.title}
+                        width={400}
+                        height={400}
+                        className="object-contain w-full h-full"
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mt-16"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-10 py-4 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all text-lg"
+            style={{
+              background:
+                "linear-gradient(to right, var(--brand-primary), var(--brand-primary-light))",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background =
+                "linear-gradient(to right, var(--brand-primary-hover), var(--brand-primary))";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background =
+                "linear-gradient(to right, var(--brand-primary), var(--brand-primary-light))";
+            }}
+          >
+            Hemen Başla
+          </motion.button>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

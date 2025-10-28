@@ -120,3 +120,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Brand Colors */
+:root {
+  --brand-primary: #9c1b27;
+  --brand-primary-hover: #7d1620;
+  --brand-primary-light: #c52433;
+}
+
+/* Landing Page Styles */
+.link-primary:hover {
+  color: var(--brand-primary);
+}
