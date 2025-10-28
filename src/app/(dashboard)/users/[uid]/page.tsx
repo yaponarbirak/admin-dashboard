@@ -22,8 +22,6 @@ import {
   Calendar,
   Ban,
   Shield,
-  Edit,
-  Trash2,
   Star,
   Briefcase,
 } from "lucide-react";
@@ -106,26 +104,23 @@ export default function UserDetailPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-2 sm:gap-4">
           <Button variant="ghost" size="icon" onClick={() => router.back()}>
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <div>
-            <h1 className="text-3xl font-bold">Kullanıcı Detayı</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-2xl sm:text-3xl font-bold">Kullanıcı Detayı</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">
               Kullanıcı bilgilerini görüntüle ve yönet
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline">
-            <Edit className="mr-2 h-4 w-4" />
-            Düzenle
-          </Button>
-          <Button variant="destructive" onClick={() => setBanDialogOpen(true)}>
+        <div className="flex items-center gap-2 ml-auto sm:ml-0">
+          <Button variant="destructive" onClick={() => setBanDialogOpen(true)} className="flex-1 sm:flex-none">
             <Ban className="mr-2 h-4 w-4" />
-            {user.isBanned ? "Yasağı Kaldır" : "Yasakla"}
+            <span className="hidden sm:inline">{user.isBanned ? "Yasağı Kaldır" : "Yasakla"}</span>
+            <span className="sm:hidden">{user.isBanned ? "Kaldır" : "Yasakla"}</span>
           </Button>
         </div>
       </div>
@@ -413,25 +408,6 @@ export default function UserDetailPage() {
           </Card>
         </div>
       </div>
-
-      {/* Danger Zone */}
-      <Card className="border-destructive">
-        <CardHeader>
-          <CardTitle className="text-destructive">Tehlikeli İşlemler</CardTitle>
-          <CardDescription>
-            Bu işlemler geri alınamaz. Dikkatli olun!
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex gap-4">
-          <Button variant="destructive" disabled>
-            <Trash2 className="mr-2 h-4 w-4" />
-            Kullanıcıyı Sil
-          </Button>
-          <Button variant="outline" disabled>
-            Tüm Verilerini Sil
-          </Button>
-        </CardContent>
-      </Card>
 
       {/* Ban Dialog */}
       <BanUserDialog

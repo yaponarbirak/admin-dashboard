@@ -19,14 +19,14 @@ const steps = [
     title: "2. İlan Aç",
     description:
       "İlan açarak aracının arızasını veya ihtiyacını yaz. Ustalar sana teklif göndersin. Karşılaştır, seç ve kolayca hizmet al.",
-    image: "/homepage/images/feature-images/002.png",
+    image: "/homepage/images/feature-images/001.png",
   },
   {
     icon: FaWrench,
     title: "3. Ustanı Bul",
     description:
       "Tüm ustalar sistemde kayıtlıdır. Fiyatları gör, yorumları incele, işini gönül rahatlığıyla teslim et ve aracını kısa sürede hazır et.",
-    image: "/homepage/images/feature-images/002.png",
+    image: "/homepage/images/feature-images/004.png",
   },
 ];
 
@@ -118,19 +118,19 @@ export default function HowItWorks() {
                 <div className={isEven ? "lg:order-2" : "lg:order-1"}>
                   <div className="relative w-full max-w-md mx-auto aspect-square">
                     <div
-                      className="absolute inset-0 rounded-3xl blur-2xl"
+                      className="absolute inset-0 blur-2xl"
                       style={{
                         background:
-                          "linear-gradient(to bottom right, rgba(156, 27, 39, 0.2), rgba(197, 36, 51, 0.2))",
+                          "linear-gradient(to bottom right, rgba(156, 27, 39, 0.1), rgba(197, 36, 51, 0.01))",
                       }}
                     ></div>
-                    <div className="relative bg-(--landing-bg) rounded-3xl shadow-2xl p-8 border border-(--landing-border)">
+                    <div className="relative">
                       <Image
                         src={step.image}
                         alt={step.title}
                         width={400}
                         height={400}
-                        className="object-contain w-full h-full"
+                        className="object-contain w-full h-full max-h-96"
                       />
                     </div>
                   </div>

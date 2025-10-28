@@ -15,8 +15,7 @@ export default function Footer() {
   return (
     <>
       {/* CTA Section */}
-
-      <footer className="bg-(--landing-bg) text-(--landing-text) py-16 border-t border-(--landing-border)">
+      <footer className="text-(--landing-text) py-16 border-t border-(--landing-border)">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
             {/* Brand */}

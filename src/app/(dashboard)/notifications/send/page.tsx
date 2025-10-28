@@ -185,24 +185,24 @@ export default function SendNotificationPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-2 sm:gap-4">
           <Button variant="ghost" size="icon" onClick={() => router.back()}>
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <div>
-            <h1 className="text-3xl font-bold">Bildirim Gönder</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-2xl sm:text-3xl font-bold">Bildirim Gönder</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">
               Yeni bildirim kampanyası oluşturun
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" disabled={isSending}>
+        <div className="flex items-center gap-2 ml-auto sm:ml-0">
+          <Button variant="outline" disabled={isSending} className="flex-1 sm:flex-none">
             <Eye className="mr-2 h-4 w-4" />
-            Önizleme
+            <span className="hidden sm:inline">Önizleme</span>
           </Button>
-          <Button onClick={handleSend} disabled={isSending}>
+          <Button onClick={handleSend} disabled={isSending} className="flex-1 sm:flex-none">
             {isSending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -223,9 +223,9 @@ export default function SendNotificationPage() {
         <div className="lg:col-span-2">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="content">İçerik</TabsTrigger>
-              <TabsTrigger value="audience">Hedef Kitle</TabsTrigger>
-              <TabsTrigger value="schedule">Zamanlama</TabsTrigger>
+              <TabsTrigger value="content" className="text-xs sm:text-sm">İçerik</TabsTrigger>
+              <TabsTrigger value="audience" className="text-xs sm:text-sm">Hedef Kitle</TabsTrigger>
+              <TabsTrigger value="schedule" className="text-xs sm:text-sm">Zamanlama</TabsTrigger>
             </TabsList>
 
             {/* Content Tab */}

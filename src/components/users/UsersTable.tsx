@@ -23,7 +23,7 @@ import { Badge } from "@/components/ui/badge";
 import type { UserDocument } from "@/types";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
-import { ArrowUpDown, MoreHorizontal, Eye } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal, Eye, Copy, Check } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,6 +32,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
 
 interface UsersTableProps {
   users: UserDocument[];
@@ -39,6 +40,7 @@ interface UsersTableProps {
 
 export function UsersTable({ users }: UsersTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [copiedUid, setCopiedUid] = useState<string | null>(null);
   const router = useRouter();
 
   const columns = useMemo<ColumnDef<UserDocument>[]>(
@@ -171,6 +173,14 @@ export function UsersTable({ users }: UsersTableProps) {
         id: "actions",
         cell: ({ row }) => {
           const user = row.original;
+          const isCopied = copiedUid === user.uid;
+
+          const handleCopyUid = () => {
+            navigator.clipboard.writeText(user.uid);
+            setCopiedUid(user.uid);
+            toast.success("UID kopyalandı");
+            setTimeout(() => setCopiedUid(null), 2000);
+          };
 
           return (
             <DropdownMenu>
@@ -182,10 +192,18 @@ export function UsersTable({ users }: UsersTableProps) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>İşlemler</DropdownMenuLabel>
-                <DropdownMenuItem
-                  onClick={() => navigator.clipboard.writeText(user.uid)}
-                >
-                  UID Kopyala
+                <DropdownMenuItem onClick={handleCopyUid}>
+                  {isCopied ? (
+                    <>
+                      <Check className="mr-2 h-4 w-4 text-green-600" />
+                      Kopyalandı
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="mr-2 h-4 w-4" />
+                      UID Kopyala
+                    </>
+                  )}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
@@ -193,10 +211,6 @@ export function UsersTable({ users }: UsersTableProps) {
                 >
                   <Eye className="mr-2 h-4 w-4" />
                   Detayları Görüntüle
-                </DropdownMenuItem>
-                <DropdownMenuItem>Düzenle</DropdownMenuItem>
-                <DropdownMenuItem className="text-destructive">
-                  Kullanıcıyı Sil
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -219,47 +233,49 @@ export function UsersTable({ users }: UsersTableProps) {
   });
 
   return (
-    <div className="rounded-lg border bg-card">
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <TableHead key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </TableHead>
-              ))}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
+    <div className="rounded-lg border bg-card overflow-hidden">
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id} className="whitespace-nowrap">
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
                 ))}
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                Kullanıcı bulunamadı.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id} className="whitespace-nowrap">
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center">
+                  Kullanıcı bulunamadı.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

@@ -151,20 +151,20 @@ export default function JobsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">İş İlanları</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">İş İlanları</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Platformdaki tüm iş ilanlarını yönetin
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Briefcase className="h-8 w-8 text-muted-foreground" />
+          <Briefcase className="h-6 w-6 sm:h-8 sm:w-8 text-muted-foreground" />
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Toplam İlan</CardTitle>
@@ -202,7 +202,7 @@ export default function JobsPage() {
           <CardDescription>İlanları filtreleyin ve arayın</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -218,7 +218,7 @@ export default function JobsPage() {
               value={statusFilter}
               onValueChange={(value: any) => setStatusFilter(value)}
             >
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-full sm:w-[180px]">
                 <SelectValue placeholder="Durum" />
               </SelectTrigger>
               <SelectContent>
@@ -252,32 +252,33 @@ export default function JobsPage() {
               ))}
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Başlık</TableHead>
-                  <TableHead>Kategori</TableHead>
-                  <TableHead>Kullanıcı</TableHead>
-                  <TableHead>Durum</TableHead>
-                  <TableHead>Tarih</TableHead>
-                  <TableHead className="text-right">İşlemler</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredJobs.length === 0 ? (
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
                   <TableRow>
-                    <TableCell
-                      colSpan={6}
-                      className="text-center text-muted-foreground"
-                    >
-                      İlan bulunamadı
-                    </TableCell>
+                    <TableHead className="whitespace-nowrap">Başlık</TableHead>
+                    <TableHead className="whitespace-nowrap">Kategori</TableHead>
+                    <TableHead className="whitespace-nowrap">Kullanıcı</TableHead>
+                    <TableHead className="whitespace-nowrap">Durum</TableHead>
+                    <TableHead className="whitespace-nowrap">Tarih</TableHead>
+                    <TableHead className="text-right whitespace-nowrap">İşlemler</TableHead>
                   </TableRow>
-                ) : (
-                  filteredJobs.map((job) => (
-                    <TableRow key={job.id}>
-                      <TableCell className="font-medium max-w-[300px]">
-                        <div className="truncate">{job.title}</div>
+                </TableHeader>
+                <TableBody>
+                  {filteredJobs.length === 0 ? (
+                    <TableRow>
+                      <TableCell
+                        colSpan={6}
+                        className="text-center text-muted-foreground"
+                      >
+                        İlan bulunamadı
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    filteredJobs.map((job) => (
+                      <TableRow key={job.id}>
+                        <TableCell className="font-medium max-w-[300px] whitespace-nowrap">
+                          <div className="truncate">{job.title}</div>
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline">{job.category}</Badge>
@@ -337,6 +338,7 @@ export default function JobsPage() {
                 )}
               </TableBody>
             </Table>
+            </div>
           )}
         </CardContent>
       </Card>
