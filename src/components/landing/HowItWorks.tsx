@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { FaUserPlus, FaFileAlt, FaWrench } from "react-icons/fa";
 import Image from "next/image";
+import { ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 const steps = [
   {
@@ -30,7 +32,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="works-section" className="py-20">
+    <section id="works-section" className="py-20 bg-(--landing-card-bg)">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
@@ -40,10 +42,10 @@ export default function HowItWorks() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-(--landing-text) mb-4">
             Nasıl Çalışır ?
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-(--landing-text-muted) max-w-3xl mx-auto">
             YAPONARBIRAK ile aracını kolayca tamir ettir. İlanını aç, ihtiyacını
             yaz, birkaç dakika içinde ustalardan teklif al. Teklifleri
             karşılaştır, en uygununu seç ve aracını güvenle yaptır.
@@ -62,7 +64,6 @@ export default function HowItWorks() {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
                 className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
                   isEven ? "" : "lg:flex-row-reverse"
                 }`}
@@ -79,12 +80,12 @@ export default function HowItWorks() {
                     >
                       <Icon className="text-3xl text-white" />
                     </div>
-                    <h3 className="text-3xl font-bold text-gray-900">
+                    <h3 className="text-3xl font-bold text-(--landing-text)">
                       {step.title}
                     </h3>
                   </div>
 
-                  <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                  <p className="text-lg text-(--landing-text-muted) leading-relaxed mb-6">
                     {step.description}
                   </p>
 
@@ -95,7 +96,7 @@ export default function HowItWorks() {
                         className="w-2 h-2 rounded-full mt-2 shrink-0"
                         style={{ backgroundColor: "var(--brand-primary)" }}
                       ></div>
-                      <p className="text-gray-700">
+                      <p className="text-(--landing-text-muted)">
                         Güvenilir ustalarla buluşturmak, şeffaf fiyatlarla hızlı
                         çözümler sunmak
                       </p>
@@ -105,7 +106,7 @@ export default function HowItWorks() {
                         className="w-2 h-2 rounded-full mt-2 shrink-0"
                         style={{ backgroundColor: "var(--brand-primary)" }}
                       ></div>
-                      <p className="text-gray-700">
+                      <p className="text-(--landing-text-muted)">
                         Üyelik ücretsizdir. Tüm hizmet geçmişin her an
                         erişilebilir
                       </p>
@@ -114,9 +115,7 @@ export default function HowItWorks() {
                 </div>
 
                 {/* Image */}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
+                <div
                   className={isEven ? "lg:order-2" : "lg:order-1"}
                 >
                   <div className="relative w-full max-w-md mx-auto aspect-square">
@@ -127,7 +126,7 @@ export default function HowItWorks() {
                           "linear-gradient(to bottom right, rgba(156, 27, 39, 0.2), rgba(197, 36, 51, 0.2))",
                       }}
                     ></div>
-                    <div className="relative bg-white rounded-3xl shadow-2xl p-8">
+                    <div className="relative bg-(--landing-bg) rounded-3xl shadow-2xl p-8 border border-(--landing-border)">
                       <Image
                         src={step.image}
                         alt={step.title}
@@ -137,7 +136,7 @@ export default function HowItWorks() {
                       />
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </motion.div>
             );
           })}
@@ -151,25 +150,13 @@ export default function HowItWorks() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center mt-16"
         >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-10 py-4 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all text-lg"
-            style={{
-              background:
-                "linear-gradient(to right, var(--brand-primary), var(--brand-primary-light))",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background =
-                "linear-gradient(to right, var(--brand-primary-hover), var(--brand-primary))";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background =
-                "linear-gradient(to right, var(--brand-primary), var(--brand-primary-light))";
-            }}
+          <Link
+            href={"#"}
+            className="bg-(--brand-primary) flex justify-center px-10 py-4 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all text-lg cursor-pointer active:bg-(--brand-primary)/80"
           >
             Hemen Başla
-          </motion.button>
+            <ExternalLink className="ml-3 mt-1" />
+          </Link>
         </motion.div>
       </div>
     </section>

@@ -126,6 +126,24 @@
   --brand-primary: #9c1b27;
   --brand-primary-hover: #7d1620;
   --brand-primary-light: #c52433;
+  
+  /* Landing Page Light Theme */
+  --landing-bg: oklch(1 0 0);
+  --landing-text: oklch(0.145 0 0);
+  --landing-text-muted: oklch(0.4 0 0);
+  --landing-border: oklch(0.85 0 0);
+  --landing-card-bg: oklch(0.99 0 0);
+  --landing-hero-overlay: rgba(0, 0, 0, 0.6);
+}
+
+.dark {
+  /* Landing Page Dark Theme */
+  --landing-bg: oklch(0.145 0 0);
+  --landing-text: oklch(0.985 0 0);
+  --landing-text-muted: oklch(0.708 0 0);
+  --landing-border: oklch(0.269 0 0);
+  --landing-card-bg: oklch(0.205 0 0);
+  --landing-hero-overlay: rgba(0, 0, 0, 0.7);
 }
 
 /* Landing Page Styles */

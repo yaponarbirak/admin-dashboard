@@ -4,6 +4,7 @@ import Features from "@/components/landing/Features";
 import HowItWorks from "@/components/landing/HowItWorks";
 import Navigation from "@/components/landing/Navigation";
 import Footer from "@/components/landing/Footer";
+import { LandingThemeToggle } from "@/components/landing/LandingThemeToggle";
 
 export const metadata: Metadata = {
   title: "YAPONARBIRAK - Online Oto Sanayi",
@@ -35,6 +36,7 @@ export default function LandingPage() {
       <Features />
       <HowItWorks />
       <Footer />
+      <LandingThemeToggle />
     </main>
   );
 }

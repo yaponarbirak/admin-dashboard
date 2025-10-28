@@ -6,6 +6,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
 import { FaApple, FaAndroid } from "react-icons/fa";
 import Image from "next/image";
+import Link from "next/link";
 
 const slides = [
   {
@@ -63,7 +64,7 @@ export default function Hero() {
   return (
     <section
       id="home-section"
-      className="relative min-h-[600px] sm:min-h-[650px] md:h-[72vh] bg-linear-to-b from-gray-900/20 via-gray-800/50 to-gray-900/80 overflow-hidden"
+      className="relative h-[72vh] bg-linear-to-b from-gray-900/20 via-gray-800/50 to-gray-900/80 overflow-hidden"
     >
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
@@ -89,99 +90,68 @@ export default function Hero() {
               {/* Dark Overlay */}
               <div className="absolute inset-0 bg-black/70 z-1" />
 
-              <div className="container mx-auto px-4 py-8 md:py-12 h-full flex items-center relative z-10">
-                <div className="w-full max-w-7xl mx-auto">
-                  <div
-                    className={`grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center ${
-                      slide.imagePosition === "left"
-                        ? "lg:flex-row-reverse"
-                        : ""
-                    }`}
-                  >
+              {/* Content Wrapper */}
+              <div className="h-full flex items-center justify-center relative z-10 px-6 py-12">
+                <div className="w-full max-w-6xl mx-auto">
+                  {/* Mobile: Center everything, Desktop: Grid with image */}
+                  <div className="lg:grid lg:grid-cols-2 lg:gap-12 lg:items-center">
                     {/* Text Content */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2, duration: 0.6 }}
-                      className={`text-white ${
+                    <div
+                      className={`text-white text-center lg:text-left max-w-lg mx-auto lg:mx-0 ${
                         slide.imagePosition === "left"
                           ? "lg:order-2"
                           : "lg:order-1"
                       }`}
                     >
-                      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 md:mb-4 leading-tight">
+                      <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 leading-tight">
                         {slide.title}
                       </h1>
                       {slide.subtitle && (
-                        <h2
-                          className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold mb-3 md:mb-4"
-                          style={{ color: "var(--brand-primary-light)" }}
-                        >
+                        <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-semibold mb-4 text-(--brand-primary-light)">
                           {slide.subtitle}
                         </h2>
                       )}
-                      <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-4 md:mb-6 lg:mb-8 leading-relaxed">
+                      <p className="text-base sm:text-lg text-gray-300 mb-6 leading-relaxed">
                         {slide.description}
                       </p>
 
                       {/* Download Buttons */}
-                      <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-                        <motion.a
-                          href="javascript:void(0)"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="inline-flex items-center justify-center gap-2 md:gap-3 px-4 md:px-6 lg:px-8 py-3 md:py-4 bg-linear-to-r from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white font-semibold rounded-xl transition-all shadow-lg hover:shadow-xl text-sm md:text-base"
-                        >
-                          <FaApple className="text-xl md:text-2xl" />
-                          <div className="text-left">
-                            <div className="text-xs opacity-80">YAKINDA !</div>
-                            <div className="text-sm md:text-base">
-                              App Store
+                      <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <Link href="/">
+                          <div className="bg-linear-to-r from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 active:from-gray-600/90 active:to-gray-700/90 text-white transition-all inline-flex items-center justify-center gap-3 px-6 py-4 font-semibold rounded-lg cursor-pointer">
+                            <FaApple className="text-2xl" />
+                            <div className="text-left">
+                              <div className="text-xs opacity-80">
+                                YAKINDA !
+                              </div>
+                              <div>App Store</div>
                             </div>
                           </div>
-                        </motion.a>
+                        </Link>
 
-                        <motion.a
-                          href="javascript:void(0)"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="inline-flex items-center justify-center gap-2 md:gap-3 px-4 md:px-6 lg:px-8 py-3 md:py-4 text-white font-semibold rounded-xl transition-all shadow-lg hover:shadow-xl text-sm md:text-base"
-                          style={{
-                            background:
-                              "linear-gradient(to right, var(--brand-primary), var(--brand-primary-light))",
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.background =
-                              "linear-gradient(to right, var(--brand-primary-hover), var(--brand-primary))";
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.background =
-                              "linear-gradient(to right, var(--brand-primary), var(--brand-primary-light))";
-                          }}
-                        >
-                          <FaAndroid className="text-xl md:text-2xl" />
-                          <div className="text-left">
-                            <div className="text-xs opacity-80">YAKINDA !</div>
-                            <div className="text-sm md:text-base">
-                              Google Play
+                        <Link href="/">
+                          <div className="bg-linear-to-r from-(--brand-primary) to-(--brand-primary-light) hover:from-(--brand-primary)/90 hover:to-(--brand-primary-light)/90 active:from-(--brand-primary) active:to-(--brand-primary-light) text-white transition-all inline-flex items-center justify-center gap-3 px-6 py-4 font-semibold rounded-lg cursor-pointer">
+                            <FaAndroid className="text-2xl" />
+                            <div className="text-left">
+                              <div className="text-xs opacity-80">
+                                YAKINDA !
+                              </div>
+                              <div>Google Play</div>
                             </div>
                           </div>
-                        </motion.a>
+                        </Link>
                       </div>
-                    </motion.div>
+                    </div>
 
-                    {/* Image */}
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.4, duration: 0.6 }}
-                      className={`relative hidden sm:block ${
+                    {/* Image - Only on desktop */}
+                    <div
+                      className={`hidden lg:block ${
                         slide.imagePosition === "left"
                           ? "lg:order-1"
                           : "lg:order-2"
                       }`}
                     >
-                      <div className="relative w-full max-w-[200px] sm:max-w-[280px] md:max-w-md mx-auto aspect-3/4">
+                      <div className="relative w-full max-w-md mx-auto aspect-3/4">
                         <Image
                           src={slide.image}
                           alt={slide.title}
@@ -190,7 +160,7 @@ export default function Hero() {
                           priority={index === 0}
                         />
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
                 </div>
               </div>

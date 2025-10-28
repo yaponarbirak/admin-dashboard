@@ -56,42 +56,40 @@ const features = [
 ];
 
 const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
+      staggerChildren: 0.1,
+      duration: 0.6,
     },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0},
+  visible: {
+    opacity: 1,
   },
 };
 
 export default function Features() {
   return (
-    <section id="feature-section" className="py-20 bg-white">
+    <section id="feature-section" className="py-20 bg-(--landing-bg)">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-(--landing-text) mb-4">
             Uygulama Özellikleri
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-(--landing-text-muted) max-w-3xl mx-auto">
             Aracın için en uygun ustayı kolayca bul. Tek ilan aç, onlarca
             tamirciden teklif al. Online oto sanayi her zaman yanında!
           </p>
@@ -111,8 +109,8 @@ export default function Features() {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="bg-linear-to-br from-gray-50 to-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+                whileHover={{ scale: 1.02 }}
+                className="bg-(--landing-card-bg) p-8 rounded-2xl transition-all duration-300 border border-(--landing-border) shadow-sm hover:shadow-lg"
               >
                 {/* Icon */}
                 <div className="mb-6">
@@ -128,12 +126,12 @@ export default function Features() {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                <h3 className="text-2xl font-bold text-(--landing-text) mb-3">
                   {feature.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-(--landing-text-muted) leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>

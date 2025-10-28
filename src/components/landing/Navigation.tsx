@@ -84,7 +84,7 @@ export default function Navigation() {
                     {/* Dot */}
                     <div
                       className={`w-4 h-4 rounded-full transition-all duration-300 ${
-                        isActive ? "shadow-lg scale-125" : "bg-gray-400"
+                        isActive ? "shadow-lg scale-125" : "bg-(--landing-border) dark:bg-(--landing-text-muted)"
                       }`}
                       style={
                         isActive
@@ -110,11 +110,11 @@ export default function Navigation() {
 
                     {/* Tooltip */}
                     <div className="absolute right-8 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                      <div className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap shadow-xl">
+                      <div className="bg-(--landing-card-bg) text-(--landing-text) border border-(--landing-border) px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap shadow-xl">
                         <Icon className="inline mr-2" />
                         {item.label}
                         <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full">
-                          <div className="w-0 h-0 border-t-8 border-t-transparent border-l-8 border-l-gray-900 border-b-8 border-b-transparent"></div>
+                          <div className="w-0 h-0 border-t-8 border-t-transparent border-l-8 border-l-(--landing-card-bg) border-b-8 border-b-transparent"></div>
                         </div>
                       </div>
                     </div>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
   Users,
   Bell,
@@ -123,6 +124,16 @@ export function Sidebar() {
               </Link>
             );
           })}
+        </div>
+
+        {/* Theme Toggle */}
+        <div className="mt-auto pt-4 border-t border-border">
+          <div className="px-3 pb-2 text-xs font-semibold text-muted-foreground">
+            TEMA
+          </div>
+          <div className="px-3">
+            <ThemeToggle />
+          </div>
         </div>
       </nav>
     </div>
