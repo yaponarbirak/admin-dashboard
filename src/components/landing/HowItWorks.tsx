@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { FaUserPlus, FaFileAlt, FaWrench } from "react-icons/fa";
 import Image from "next/image";
-import { ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 const steps = [
@@ -115,9 +115,7 @@ export default function HowItWorks() {
                 </div>
 
                 {/* Image */}
-                <div
-                  className={isEven ? "lg:order-2" : "lg:order-1"}
-                >
+                <div className={isEven ? "lg:order-2" : "lg:order-1"}>
                   <div className="relative w-full max-w-md mx-auto aspect-square">
                     <div
                       className="absolute inset-0 rounded-3xl blur-2xl"
@@ -141,23 +139,6 @@ export default function HowItWorks() {
             );
           })}
         </div>
-
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-16"
-        >
-          <Link
-            href={"#"}
-            className="bg-(--brand-primary) flex justify-center px-10 py-4 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all text-lg cursor-pointer active:bg-(--brand-primary)/80"
-          >
-            Hemen Başla
-            <ExternalLink className="ml-3 mt-1" />
-          </Link>
-        </motion.div>
       </div>
     </section>
   );

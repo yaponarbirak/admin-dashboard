@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import {
   FaClock,
   FaBullseye,
@@ -77,7 +78,7 @@ const itemVariants = {
 export default function Features() {
   return (
     <section id="feature-section" className="py-20 bg-(--landing-bg)">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 space-y-12">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -137,6 +138,70 @@ export default function Features() {
               </motion.div>
             );
           })}
+        </motion.div>
+
+        {/* CTA Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="flex justify-center"
+        >
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="group relative px-8 py-4 overflow-hidden rounded-2xl  cursor-pointer"
+          >
+            {/* Background gradient */}
+            <div className="absolute inset-0 bg-linear-to-r from-(--brand-primary) to-(--brand-primary-light)" />
+
+            {/* Animated shine effect */}
+            <motion.div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
+              }}
+              animate={{
+                x: ["-100%", "100%"],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
+
+            {/* Content */}
+            <div className="relative flex items-center gap-3 text-white font-semibold text-lg">
+              <span>Hemen Başla</span>
+              <motion.div
+                animate={{
+                  x: [0, 4, 0],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                <ArrowRight
+                  size={20}
+                  className="group-hover:-rotate-45 group-hover:translate-x-4 transition-transform duration-300"
+                />
+              </motion.div>
+            </div>
+
+            {/* Hover glow effect */}
+            <motion.div
+              className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{
+                boxShadow:
+                  "0 0 20px rgba(156, 27, 39, 0.5), 0 0 40px rgba(197, 36, 51, 0.3)",
+              }}
+            />
+          </motion.button>
         </motion.div>
       </div>
     </section>
