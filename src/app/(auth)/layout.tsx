@@ -13,9 +13,9 @@ export default function AuthLayout({
   const router = useRouter();
 
   useEffect(() => {
-    // If user is already logged in, redirect to dashboard
+    // If user is already logged in, redirect to admin dashboard
     if (!loading && user) {
-      router.push("/");
+      router.push("/admin");
     }
   }, [user, loading, router]);
 
