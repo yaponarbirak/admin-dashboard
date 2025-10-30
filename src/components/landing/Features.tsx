@@ -69,7 +69,7 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0},
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
   },
@@ -77,8 +77,8 @@ const itemVariants = {
 
 export default function Features() {
   return (
-    <section id="feature-section" className="py-20 bg-(--landing-bg)">
-      <div className="container mx-auto px-4 space-y-12">
+    <section id="feature-section" className="py-20 bg-gray-50 dark:bg-black">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -87,10 +87,10 @@ export default function Features() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-(--landing-text) mb-4">
+          <h2 className="text-4xl md:text-5xl font-light text-gray-900 dark:text-white mb-4">
             Uygulama Özellikleri
           </h2>
-          <p className="text-xl text-(--landing-text-muted) max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Aracın için en uygun ustayı kolayca bul. Tek ilan aç, onlarca
             tamirciden teklif al. Online oto sanayi her zaman yanında!
           </p>
@@ -102,7 +102,7 @@ export default function Features() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
         >
           {features.map((feature, index) => {
             const Icon = feature.icon;
@@ -110,98 +110,28 @@ export default function Features() {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-                className="bg-(--landing-card-bg) p-8 rounded-2xl transition-all duration-300 border border-(--landing-border) shadow-sm hover:shadow-lg"
+                className="p-8 flex gap-6"
               >
                 {/* Icon */}
                 <div className="mb-6">
-                  <div
-                    className="w-16 h-16 rounded-xl flex items-center justify-center shadow-lg"
-                    style={{
-                      background:
-                        "linear-gradient(to bottom right, var(--brand-primary), var(--brand-primary-light))",
-                    }}
-                  >
-                    <Icon className="text-3xl text-white" />
+                  <div className="w-14 h-14 rounded-full flex border border-red-600/10 dark:border-red-600/60 items-center justify-center">
+                    <Icon className="text-2xl text-red-600" />
                   </div>
                 </div>
+                <div>
+                  {/* Title */}
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                    {feature.title}
+                  </h3>
 
-                {/* Title */}
-                <h3 className="text-2xl font-bold text-(--landing-text) mb-3">
-                  {feature.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-(--landing-text-muted) leading-relaxed">
-                  {feature.description}
-                </p>
+                  {/* Description */}
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
+                    {feature.description}
+                  </p>
+                </div>
               </motion.div>
             );
           })}
-        </motion.div>
-
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex justify-center"
-        >
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="group relative px-8 py-4 overflow-hidden rounded-2xl  cursor-pointer"
-          >
-            {/* Background gradient */}
-            <div className="absolute inset-0 bg-linear-to-r from-(--brand-primary) to-(--brand-primary-light)" />
-
-            {/* Animated shine effect */}
-            <motion.div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              style={{
-                background:
-                  "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
-              }}
-              animate={{
-                x: ["-100%", "100%"],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-
-            {/* Content */}
-            <div className="relative flex items-center gap-3 text-white font-semibold text-lg">
-              <span>Hemen Başla</span>
-              <motion.div
-                animate={{
-                  x: [0, 4, 0],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                <ArrowRight
-                  size={20}
-                  className="group-hover:-rotate-45 group-hover:translate-x-4 transition-transform duration-300"
-                />
-              </motion.div>
-            </div>
-
-            {/* Hover glow effect */}
-            <motion.div
-              className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              style={{
-                boxShadow:
-                  "0 0 20px rgba(156, 27, 39, 0.5), 0 0 40px rgba(197, 36, 51, 0.3)",
-              }}
-            />
-          </motion.button>
         </motion.div>
       </div>
     </section>

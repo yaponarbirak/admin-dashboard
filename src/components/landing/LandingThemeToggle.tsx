@@ -26,13 +26,13 @@ export function LandingThemeToggle() {
       onClick={toggleTheme}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
-      className="fixed top-6 right-6 z-50 w-12 h-12 rounded-full bg-(--landing-card-bg) backdrop-blur-md border border-(--landing-border) flex items-center justify-center text-(--landing-text) hover:bg-(--brand-primary) hover:text-white hover:border-(--brand-primary) transition-all shadow-lg"
+      className="fixed top-6 right-6 z-50 w-12 h-12 rounded-full bg-(--landing-card-bg) backdrop-blur-md border border-(--landing-border) flex items-center justify-center text-(--landing-text) hover:bg-(--brand-primary) hover:text-white hover:border-(--brand-primary) transition-all shadow-lg cursor-pointer"
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (
         <Sun className="h-5 w-5 text-white" />
       ) : (
-        <Moon className="h-5 w-5 text-gray-600/70" />
+        <Moon className="h-5 w-5 text-gray-950" />
       )}
     </motion.button>
   );
