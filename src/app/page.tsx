@@ -41,7 +41,7 @@ export default function LandingPage() {
       <HowItWorks />
       <Screenshots />
       <Partners />
-      {/* <Footer /> */}
+      <Footer />
       {/* <LandingThemeToggle /> */}
     </main>
   );
