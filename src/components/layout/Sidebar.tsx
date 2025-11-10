@@ -18,6 +18,7 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const navigation = [
   {
@@ -106,9 +107,10 @@ export function Sidebar() {
         {/* Logo */}
         <div className="flex h-16 items-center border-b px-6">
           <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <span className="text-sm font-bold">YOB</span>
-            </div>
+            <div
+             className="relative h-10 w-10">
+              <Image src={"/app-logo.png"} alt="logo" fill sizes="100wv" className="object-cover" />
+             </div>
             <span className="text-lg font-semibold">Admin Panel</span>
           </Link>
         </div>

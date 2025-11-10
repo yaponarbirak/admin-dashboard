@@ -240,6 +240,7 @@ export default function UsersPage() {
 
             return true;
           })}
+          onRefresh={() => refetch()}
         />
       ) : (
         <Card>

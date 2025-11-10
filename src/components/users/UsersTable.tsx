@@ -23,7 +23,7 @@ import { Badge } from "@/components/ui/badge";
 import type { UserDocument } from "@/types";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
-import { ArrowUpDown, MoreHorizontal, Eye, Copy, Check } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal, Eye, Copy, Check, Shield, ShieldOff } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,14 +33,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
+import { GrantAdminDialog } from "./GrantAdminDialog";
+import { RevokeAdminDialog } from "./RevokeAdminDialog";
 
 interface UsersTableProps {
   users: UserDocument[];
+  onRefresh?: () => void;
 }
 
-export function UsersTable({ users }: UsersTableProps) {
+export function UsersTable({ users, onRefresh }: UsersTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [copiedUid, setCopiedUid] = useState<string | null>(null);
+  const [grantAdminDialogOpen, setGrantAdminDialogOpen] = useState(false);
+  const [revokeAdminDialogOpen, setRevokeAdminDialogOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserDocument | null>(null);
   const router = useRouter();
 
   const columns = useMemo<ColumnDef<UserDocument>[]>(
@@ -61,8 +67,20 @@ export function UsersTable({ users }: UsersTableProps) {
           );
         },
         cell: ({ row }) => (
-          <div className="flex flex-col">
-            <span className="font-medium">{row.getValue("email")}</span>
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-2">
+              <span className="font-medium">{row.getValue("email")}</span>
+              {row.original.isAdmin && (
+                <Badge variant="destructive" className="text-xs">
+                  <Shield className="w-3 h-3 mr-1" />
+                  {row.original.adminRole === "super_admin"
+                    ? "Super Admin"
+                    : row.original.adminRole === "admin"
+                    ? "Admin"
+                    : "Moderator"}
+                </Badge>
+              )}
+            </div>
             {row.original.fullName && (
               <span className="text-sm text-muted-foreground">
                 {row.original.fullName}
@@ -212,6 +230,30 @@ export function UsersTable({ users }: UsersTableProps) {
                   <Eye className="mr-2 h-4 w-4" />
                   Detayları Görüntüle
                 </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                {user.isAdmin ? (
+                  <DropdownMenuItem
+                    onClick={() => {
+                      setSelectedUser(user);
+                      setRevokeAdminDialogOpen(true);
+                    }}
+                    className="text-orange-600"
+                  >
+                    <ShieldOff className="mr-2 h-4 w-4" />
+                    Admin Yetkisini Kaldır
+                  </DropdownMenuItem>
+                ) : (
+                  <DropdownMenuItem
+                    onClick={() => {
+                      setSelectedUser(user);
+                      setGrantAdminDialogOpen(true);
+                    }}
+                    className="text-green-600"
+                  >
+                    <Shield className="mr-2 h-4 w-4" />
+                    Admin Yetkisi Ver
+                  </DropdownMenuItem>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           );
@@ -276,6 +318,31 @@ export function UsersTable({ users }: UsersTableProps) {
           </TableBody>
         </Table>
       </div>
+
+      {/* Admin Management Dialogs */}
+      <GrantAdminDialog
+        user={selectedUser}
+        open={grantAdminDialogOpen}
+        onOpenChange={setGrantAdminDialogOpen}
+        onSuccess={() => {
+          if (onRefresh) {
+            onRefresh();
+          }
+          setSelectedUser(null);
+        }}
+      />
+      
+      <RevokeAdminDialog
+        user={selectedUser}
+        open={revokeAdminDialogOpen}
+        onOpenChange={setRevokeAdminDialogOpen}
+        onSuccess={() => {
+          if (onRefresh) {
+            onRefresh();
+          }
+          setSelectedUser(null);
+        }}
+      />
     </div>
   );
 }

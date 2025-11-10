@@ -35,6 +35,10 @@ export interface UserDocument {
   bannedReason?: string;
   bannedBy?: string; // Admin UID
 
+  // Admin privileges
+  isAdmin?: boolean;
+  adminRole?: AdminRole;
+
   // Service Provider specific
   serviceCategories?: string[];
   bio?: string;

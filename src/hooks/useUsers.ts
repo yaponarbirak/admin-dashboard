@@ -75,6 +75,8 @@ export function useUsers(options: UseUsersOptions = {}) {
           applicationsReceived: data.applicationsReceived || 0,
           applicationsSent: data.applicationsSent || 0,
           fcmTokens: data.fcmTokens || undefined,
+          isAdmin: data.isAdmin || false,
+          adminRole: data.adminRole || undefined,
         };
       });
 

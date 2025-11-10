@@ -4,7 +4,8 @@ import {
   User,
   UserCredential,
 } from "firebase/auth";
-import { auth } from "./client";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "./client";
 import { AdminUser } from "@/types";
 
 /**
@@ -44,8 +45,15 @@ export async function logout(): Promise<void> {
  */
 export async function checkAdminClaim(user: User): Promise<boolean> {
   try {
-    const idTokenResult = await user.getIdTokenResult();
-    return idTokenResult.claims.admin === true;
+    // Firestore'dan kullanıcı dokümanını kontrol et
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    
+    if (!userDoc.exists()) {
+      return false;
+    }
+    
+    const userData = userDoc.data();
+    return userData.isAdmin === true && userData.adminRole != null;
   } catch (error) {
     console.error("Error checking admin claim:", error);
     return false;
@@ -59,9 +67,15 @@ export async function getAdminRole(
   user: User
 ): Promise<"super_admin" | "admin" | "moderator" | null> {
   try {
-    const idTokenResult = await user.getIdTokenResult();
-    const role = idTokenResult.claims.role;
-    return (role as "super_admin" | "admin" | "moderator") || null;
+    // Firestore'dan kullanıcı dokümanını kontrol et
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    
+    if (!userDoc.exists()) {
+      return null;
+    }
+    
+    const userData = userDoc.data();
+    return userData.adminRole || null;
   } catch (error) {
     console.error("Error getting admin role:", error);
     return null;
