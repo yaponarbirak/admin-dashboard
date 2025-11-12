@@ -16,6 +16,10 @@ import {
   MessageSquare,
   Menu,
   X,
+  FolderTree,
+  Wrench,
+  Image as ImageIcon,
+  LayoutList,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -52,6 +56,33 @@ const navigation = [
     icon: BarChart3,
   },
   {
+    name: "İçerik Yönetimi",
+    href: "/content",
+    icon: LayoutList,
+    children: [
+      {
+        name: "Tamir Kategorileri",
+        href: "/content/repair-categories",
+        icon: FolderTree,
+      },
+      {
+        name: "Tamir Türleri",
+        href: "/content/repair-types",
+        icon: Wrench,
+      },
+      {
+        name: "Ana Sayfa Slider",
+        href: "/content/home-sliders",
+        icon: ImageIcon,
+      },
+      {
+        name: "Ana Sayfa Kartları",
+        href: "/content/home-cards",
+        icon: LayoutList,
+      },
+    ],
+  },
+  {
     name: "Ayarlar",
     href: "/settings",
     icon: Settings,
@@ -69,9 +100,18 @@ const adminNavigation = [
 export function Sidebar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [expandedMenus, setExpandedMenus] = useState<string[]>([]);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
+  
+  const toggleSubmenu = (itemName: string) => {
+    setExpandedMenus(prev => 
+      prev.includes(itemName) 
+        ? prev.filter(name => name !== itemName)
+        : [...prev, itemName]
+    );
+  };
 
   return (
     <>
@@ -119,23 +159,79 @@ export function Sidebar() {
         <nav className="flex-1 space-y-1 px-3 py-4 overflow-y-auto">
           {navigation.map((item) => {
             const Icon = item.icon;
-            const isActive = pathname === item.href;
+            const isActive = pathname === item.href || (item.children && item.children.some(child => pathname.startsWith(child.href)));
+            const hasChildren = item.children && item.children.length > 0;
+            const isExpanded = expandedMenus.includes(item.name);
 
             return (
-              <Link
-                key={item.name}
-                href={item.href}
-                onClick={closeMobileMenu}
-                className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                  isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+              <div key={item.name}>
+                {hasChildren ? (
+                  <button
+                    onClick={() => toggleSubmenu(item.name)}
+                    className={cn(
+                      "w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                      isActive
+                        ? "bg-primary/10 text-primary"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    )}
+                  >
+                    <Icon className="h-5 w-5" />
+                    <span className="flex-1 text-left">{item.name}</span>
+                    <svg
+                      className={cn(
+                        "h-4 w-4 transition-transform",
+                        isExpanded && "rotate-180"
+                      )}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                ) : (
+                  <Link
+                    href={item.href}
+                    onClick={closeMobileMenu}
+                    className={cn(
+                      "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                      isActive
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    )}
+                  >
+                    <Icon className="h-5 w-5" />
+                    {item.name}
+                  </Link>
                 )}
-              >
-                <Icon className="h-5 w-5" />
-                {item.name}
-              </Link>
+                
+                {/* Submenu */}
+                {hasChildren && isExpanded && (
+                  <div className="ml-6 mt-1 space-y-1">
+                    {item.children!.map((child) => {
+                      const ChildIcon = child.icon;
+                      const isChildActive = pathname === child.href;
+                      
+                      return (
+                        <Link
+                          key={child.name}
+                          href={child.href}
+                          onClick={closeMobileMenu}
+                          className={cn(
+                            "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                            isChildActive
+                              ? "bg-primary text-primary-foreground"
+                              : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          )}
+                        >
+                          <ChildIcon className="h-4 w-4" />
+                          {child.name}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             );
           })}
 

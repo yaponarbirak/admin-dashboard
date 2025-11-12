@@ -45,14 +45,16 @@ export async function logout(): Promise<void> {
  */
 export async function checkAdminClaim(user: User): Promise<boolean> {
   try {
-    // Firestore'dan kullanıcı dokümanını kontrol et
+    // Kullanıcının kendi dokümanını oku (auth state ile izin var)
     const userDoc = await getDoc(doc(db, "users", user.uid));
     
     if (!userDoc.exists()) {
+      console.log("User document does not exist");
       return false;
     }
     
     const userData = userDoc.data();
+    console.log("User data:", { isAdmin: userData.isAdmin, adminRole: userData.adminRole });
     return userData.isAdmin === true && userData.adminRole != null;
   } catch (error) {
     console.error("Error checking admin claim:", error);
