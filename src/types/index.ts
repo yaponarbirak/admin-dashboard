@@ -38,6 +38,7 @@ export interface UserDocument {
   // Admin privileges
   isAdmin?: boolean;
   adminRole?: AdminRole;
+  role?: AdminRole;
 
   // Service Provider specific
   serviceCategories?: string[];

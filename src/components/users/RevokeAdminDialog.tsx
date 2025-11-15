@@ -35,6 +35,12 @@ export function RevokeAdminDialog({
   const handleRevokeAdmin = async () => {
     if (!user || !currentAdmin) return;
 
+    // Admin kendi yetkisini kaldıramaz
+    if (user.uid === currentAdmin.uid) {
+      toast.error("Kendi admin yetkinizi kaldıramazsınız");
+      return;
+    }
+
     setIsLoading(true);
     try {
       await revokeAdminAccess({
@@ -84,13 +90,13 @@ export function RevokeAdminDialog({
             </div>
           </div>
 
-          {user?.adminRole && (
+          {user?.role && (
             <div className="text-sm text-muted-foreground">
               <p>
                 <strong>Mevcut Rol:</strong>{" "}
-                {user.adminRole === "super_admin"
+                {user.role === "super_admin"
                   ? "Super Admin"
-                  : user.adminRole === "admin"
+                  : user.role === "admin"
                   ? "Admin"
                   : "Moderator"}
               </p>

@@ -86,7 +86,7 @@ export async function grantAdminAccess({
   // Users koleksiyonunu güncelle
   await updateDoc(userRef, {
     isAdmin: true,
-    adminRole: role,
+    role: role,
     updatedAt: Timestamp.now(),
   });
 
@@ -121,7 +121,7 @@ export async function revokeAdminAccess({
   // Users koleksiyonunu güncelle
   await updateDoc(userRef, {
     isAdmin: false,
-    adminRole: null,
+    role: null,
     updatedAt: Timestamp.now(),
   });
 

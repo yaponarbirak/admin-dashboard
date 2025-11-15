@@ -20,6 +20,7 @@ import {
   Wrench,
   Image as ImageIcon,
   LayoutList,
+  MessagesSquare,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -44,6 +45,11 @@ const navigation = [
     name: "Yorumlar",
     href: "/reviews",
     icon: MessageSquare,
+  },
+  {
+    name: "Destek Mesajları",
+    href: "/support-messages",
+    icon: MessagesSquare,
   },
   {
     name: "Bildirimler",

@@ -54,8 +54,8 @@ export async function checkAdminClaim(user: User): Promise<boolean> {
     }
     
     const userData = userDoc.data();
-    console.log("User data:", { isAdmin: userData.isAdmin, adminRole: userData.adminRole });
-    return userData.isAdmin === true && userData.adminRole != null;
+    console.log("User data:", { isAdmin: userData.isAdmin, role: userData.role });
+    return userData.isAdmin === true && userData.role != null;
   } catch (error) {
     console.error("Error checking admin claim:", error);
     return false;
@@ -77,7 +77,7 @@ export async function getAdminRole(
     }
     
     const userData = userDoc.data();
-    return userData.adminRole || null;
+    return userData.role || null;
   } catch (error) {
     console.error("Error getting admin role:", error);
     return null;

@@ -44,6 +44,12 @@ export function GrantAdminDialog({
   const handleGrantAdmin = async () => {
     if (!user || !currentAdmin) return;
 
+    // Admin kendine yetki veremez (zaten admin)
+    if (user.uid === currentAdmin.uid) {
+      toast.error("Kendi hesabınıza zaten admin yetkiniz var");
+      return;
+    }
+
     setIsLoading(true);
     try {
       await grantAdminAccess({

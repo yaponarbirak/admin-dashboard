@@ -35,6 +35,7 @@ import {
 import { toast } from "sonner";
 import { GrantAdminDialog } from "./GrantAdminDialog";
 import { RevokeAdminDialog } from "./RevokeAdminDialog";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 interface UsersTableProps {
   users: UserDocument[];
@@ -48,6 +49,7 @@ export function UsersTable({ users, onRefresh }: UsersTableProps) {
   const [revokeAdminDialogOpen, setRevokeAdminDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserDocument | null>(null);
   const router = useRouter();
+  const { user: currentAdmin } = useAuth();
 
   const columns = useMemo<ColumnDef<UserDocument>[]>(
     () => [
@@ -73,9 +75,9 @@ export function UsersTable({ users, onRefresh }: UsersTableProps) {
               {row.original.isAdmin && (
                 <Badge variant="destructive" className="text-xs">
                   <Shield className="w-3 h-3 mr-1" />
-                  {row.original.adminRole === "super_admin"
+                  {row.original.role === "super_admin"
                     ? "Super Admin"
-                    : row.original.adminRole === "admin"
+                    : row.original.role === "admin"
                     ? "Admin"
                     : "Moderator"}
                 </Badge>
@@ -230,29 +232,33 @@ export function UsersTable({ users, onRefresh }: UsersTableProps) {
                   <Eye className="mr-2 h-4 w-4" />
                   Detayları Görüntüle
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                {user.isAdmin ? (
-                  <DropdownMenuItem
-                    onClick={() => {
-                      setSelectedUser(user);
-                      setRevokeAdminDialogOpen(true);
-                    }}
-                    className="text-orange-600"
-                  >
-                    <ShieldOff className="mr-2 h-4 w-4" />
-                    Admin Yetkisini Kaldır
-                  </DropdownMenuItem>
-                ) : (
-                  <DropdownMenuItem
-                    onClick={() => {
-                      setSelectedUser(user);
-                      setGrantAdminDialogOpen(true);
-                    }}
-                    className="text-green-600"
-                  >
-                    <Shield className="mr-2 h-4 w-4" />
-                    Admin Yetkisi Ver
-                  </DropdownMenuItem>
+                {currentAdmin && currentAdmin.uid !== user.uid && (
+                  <>
+                    <DropdownMenuSeparator />
+                    {user.isAdmin ? (
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setSelectedUser(user);
+                          setRevokeAdminDialogOpen(true);
+                        }}
+                        className="text-orange-600"
+                      >
+                        <ShieldOff className="mr-2 h-4 w-4" />
+                        Admin Yetkisini Kaldır
+                      </DropdownMenuItem>
+                    ) : (
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setSelectedUser(user);
+                          setGrantAdminDialogOpen(true);
+                        }}
+                        className="text-green-600"
+                      >
+                        <Shield className="mr-2 h-4 w-4" />
+                        Admin Yetkisi Ver
+                      </DropdownMenuItem>
+                    )}
+                  </>
                 )}
               </DropdownMenuContent>
             </DropdownMenu>
